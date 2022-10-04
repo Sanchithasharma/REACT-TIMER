@@ -6,25 +6,28 @@ export class Timer extends Component {
     seconds: 0,
   };
 
-  componentDidMount() {
-    this.myInterval = setInterval(() => {
-      const { seconds, minutes } = this.state
-      if (seconds > 0) {
+  countDown = () => {
+    const { seconds, minutes } = this.state
+
+    if (seconds > 0) {
         this.setState(({ seconds }) => ({
-          seconds: seconds - 1
+            seconds: seconds - 1
         }))
-      }
-      if (seconds === 0) {
+    }
+    if (seconds === 0) {
         if (minutes === 0) {
-          clearInterval(this.myInterval)
+            clearInterval(this.myInterval)
         } else {
-          this.setState(({ minutes }) => ({
-            minutes: minutes - 1,
-            seconds: 59
-          }))
+            this.setState(({ minutes }) => ({
+                minutes: minutes - 1,
+                seconds: 59
+            }))
         }
-      }
-    }, 1000)
+    }
+  };
+
+  componentDidMount() {
+    this.myInterval = setInterval(this.countDown, 1000);
   }
 
   componentWillUnmount() {
@@ -41,7 +44,7 @@ export class Timer extends Component {
             <span>Busted!</span>
           ) : (
             <span>
-              Time Remaining: {minutes}:{ seconds > 10 ? seconds : `0${seconds}`}
+              Time Remaining: {minutes}:{seconds > 10 ? seconds : `0${seconds}`}
             </span>
           )}
         </h1>
