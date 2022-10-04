@@ -44,7 +44,7 @@ export class Timer extends Component {
             <span>Busted!</span>
           ) : (
             <span>
-              Time Remaining: {minutes}:{seconds > 10 ? seconds : `0${seconds}`}
+              Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </span>
           )}
         </h1>
